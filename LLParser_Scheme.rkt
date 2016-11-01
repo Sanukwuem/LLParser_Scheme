@@ -1,14 +1,7 @@
 #lang scheme
 (define parse-table
   (lambda (grammar)
-    (if (= 2 1)
-        1
-        ((display grammar) ))))
-
-
-;used to test how a funtion with lambda is supposed to behave
-(define reverse-subtract
-  (lambda (x y) (- y x)))
+        (print grammar)))
 
 (define calc-gram
 '(("P" ("SL" "$$"))
@@ -21,3 +14,4 @@
   ("mo" ("*") ("/"))
   ("F" ("id") ("num") ("(" "E" ")"))
 ))
+
