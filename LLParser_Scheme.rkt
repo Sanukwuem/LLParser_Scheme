@@ -209,3 +209,35 @@
                                            " when seeing " (car input)))))))))))
       (helper (list (start-symbol grammar)) input))))
 |#
+
+
+(define first
+  (lambda (w knowledge grammar)
+    ; Return FIRST(w) - {epsilon}, based on current estimates.
+    ; if w is a terminal, return (w)
+    (if (terminal? w calc-gram)
+        w
+        ;get productions of the non-terminal and then call first on that
+        ;if map car grammar equals w
+        ;map through all of the elements.. if car equals w then return cdr, maybe use full production list
+        ;if car equals w
+        (if (non-terminal? w calc-gram)
+            (print "this is a non-terminal")
+            (print "who knows what this is")))
+    ; if w is a non-terminal, look it up
+    ; if w is an empty list, return ()  [empty set]
+    ; if w is a non-empty list, "iterate" over elements
+
+      ;;; your code here 
+
+    ))
+
+
+(define initial-knowledge
+  (lambda (grammar)
+    ; Return knowledge structure with empty FIRST and FOLLOW sets
+    ; and false gen-epsilon estimate for all symbols.
+    (map (lambda (A) (list A #f '() '()))
+         (non-terminals grammar))))
+
+;(first "SL" (initial-knowledge calc-gram) calc-gram)
