@@ -84,6 +84,18 @@
     ; Return list of all non-terminals in grammar.
     (map car grammar)))
 
+
+
+#|
+(define non-terminals1
+  (lambda (w grammar)
+    ; Return specified non-grammar
+    (if (eqv? (map car grammar) w)
+        (print "true")
+        (print w)
+     )))
+|#
+
 (define gsymbols
   (lambda (grammar)
     ; Return list of all symbols in grammar (no duplicates).
@@ -112,6 +124,7 @@
                          (list (car prods) rhs))
                        (cdr prods)))
                 grammar))))
+
 
 (define gsymbol?
   (lambda (x grammar)
@@ -215,21 +228,22 @@
   (lambda (w knowledge grammar)
     ; Return FIRST(w) - {epsilon}, based on current estimates.
     ; if w is a terminal, return (w)
-    (if (terminal? w calc-gram)
+    (if (terminal? w grammar)
         w
         ;get productions of the non-terminal and then call first on that
         ;if map car grammar equals w
         ;map through all of the elements.. if car equals w then return cdr, maybe use full production list
         ;if car equals w
-        (if (non-terminal? w calc-gram)
-            (print "this is a non-terminal")
+        (if (non-terminal? w grammar)
+            (non-terminals grammar)
             (print "who knows what this is")))
     ; if w is a non-terminal, look it up
     ; if w is an empty list, return ()  [empty set]
     ; if w is a non-empty list, "iterate" over elements
 
-      ;;; your code here 
-
+      ;;; your code here
+    
+    ;if car of whatever the production is equals w then get the rest otherwise, car of cudr
     ))
 
 
@@ -240,4 +254,52 @@
     (map (lambda (A) (list A #f '() '()))
          (non-terminals grammar))))
 
+(define non-terminals1
+  (lambda (w grammar)
+    ; Return specified non-grammar
+    (if (eqv? (car (map car grammar)) w)
+        w
+        (if (eqv? (car (cdr (map car grammar))) w)
+            w
+            (if (eqv? (car (cdr (cdr (map car grammar)))) w)
+            w
+                (if (eqv? (car (cdr (cdr (cdr (map car grammar))))) w)
+                w
+                (if (eqv? (car (cdr (cdr (cdr (cdr (map car grammar)))))) w)
+                w
+                (if (eqv? (car (cdr (cdr (cdr (cdr (cdr (map car grammar))))))) w)
+                w
+                (if (eqv? (car (cdr (cdr (cdr (cdr (cdr (cdr (map car grammar)))))))) w)
+                w
+                (if (eqv? (car (cdr (cdr (cdr (cdr (cdr (cdr (cdr (map car grammar))))))))) w)
+                w
+                (if (eqv? (car (cdr (cdr (cdr (cdr (cdr (cdr (cdr (cdr (map car grammar)))))))))) w)
+                w
+            
+        (print "no match")
+     )))))))))))
+
+(define productions1
+  (lambda (w grammar)
+    ;used to equal. if it equals p
+    (if (eqv? (car (car grammar))w)
+    (car grammar)
+    (if (eqv? (car (car (cdr grammar)))w)
+        (car (cdr grammar))
+        (print "no match")
+    ))))
+
 ;(first "SL" (initial-knowledge calc-gram) calc-gram)
+
+#|
+(if (eqv? (map car grammar) w)
+                (print w)
+                (print "dont print this")
+|#
+
+#|
+(define (get-line nonterm gram)
+  (if (equal? (car (car gram)) nonterm)
+      (car gram)
+      (get-line nonterm (cdr gram))))
+|#
