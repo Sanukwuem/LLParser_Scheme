@@ -129,6 +129,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Custom Functions Start Here ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;Test Grammar
 (define calc-gram 
 '(("P" ("SL" "$$"))
   ("SL" ("S" "SL") (" "))
@@ -142,15 +143,9 @@
   ("F" ("id") ("num") ("(" "E" ")"))
 ))
 
-(define s1
-  (lambda ()
-  (string-append " ")))
-(define s2 (string-append "exa " "\n" " mple"))
-(define s3 (string-append "exa " "\n" " mple"))
-
+;If the input is equal to the non-terminal specified then get that specific line
 (define getProduction
   (lambda (w grammar)
-    ;used to equal. if it equals p
     (if (eqv? (car (car grammar))w)
     (car grammar)
     (if (eqv? (car (car (cdr grammar)))w)
@@ -172,13 +167,15 @@
                                     (if (eqv? (car (car (cdr (cdr (cdr (cdr (cdr (cdr (cdr (cdr (cdr grammar)))))))))))w)
                                         (car (cdr (cdr (cdr (cdr (cdr (cdr (cdr (cdr (cdr grammar))))))))))
                                         (print "no match")))))))))))))
-                                        
-(define first
-  (lambda (w knowledge grammar)
-    
+#|
     ; if w is a terminal, return (w)
     ; if w is a non-terminal, look it up and then call first on the first element of the list
+    ; if w is an empty list, return ()
+    ; if w is a non-empty list, "iterate" over elements
     ; if no match exists then the function prints no match
+|#
+(define first
+  (lambda (w knowledge grammar)
     (if (eqv? w " ")
     "()"
     (if (terminal? w grammar)
@@ -190,6 +187,3 @@
 ;;;;;;;;;;;;;;;;;;;; Function Calls ;;;;;;;;;;;;;;;;;
 ;(getProduction "T" calc-gram)
 ;(first "SL" (initial-knowledge calc-gram) calc-gram)
-;(map car (cdr (getProduction "S" calc-gram)))
-;(first car (map car (cdr (getProduction "S" calc-gram))) initial-knowledge calc-gram)
-;(for-each (lambda (x) (newline) (display (first x (initial-knowledge calc-gram) calc-gram))) (map car (cdr (getProduction "S" calc-gram))))
