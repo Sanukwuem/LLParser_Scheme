@@ -1,5 +1,11 @@
 #lang scheme
 
+#|
+;Sean Anukwuem
+;Evan Melquist
+:Project 2 - part 2
+|#
+
 (define sort
   (lambda (L)
     ; Use string comparison to quicksort list.
@@ -125,16 +131,22 @@
 
 (define calc-gram 
 '(("P" ("SL" "$$"))
-  ("SL" ("S" "SL") ())
+  ("SL" ("S" "SL") (" "))
   ("S" ("id" ":=" "E") ("read" "id") ("write" "E"))
   ("E" ("T" "TT"))
   ("T" ("F" "FT"))
-  ("TT" ("ao" "T" "TT") ())
-  ("FT" ("mo" "F" "FT") ())
+  ("TT" ("ao" "T" "TT") (" "))
+  ("FT" ("mo" "F" "FT") (" "))
   ("ao" ("+") ("-"))
   ("mo" ("*") ("/"))
   ("F" ("id") ("num") ("(" "E" ")"))
 ))
+
+(define s1
+  (lambda ()
+  (string-append " ")))
+(define s2 (string-append "exa " "\n" " mple"))
+(define s3 (string-append "exa " "\n" " mple"))
 
 (define getProduction
   (lambda (w grammar)
@@ -167,12 +179,17 @@
     ; if w is a terminal, return (w)
     ; if w is a non-terminal, look it up and then call first on the first element of the list
     ; if no match exists then the function prints no match
+    (if (eqv? w " ")
+    "()"
     (if (terminal? w grammar)
         w
         (if (non-terminal? w grammar)
-            (first (car (car (cdr (getProduction w grammar)))) knowledge grammar)
-            (print "no match")))))
+            (for-each (lambda (x)  (print (first x knowledge grammar ))(display " ") ) (map car (cdr (getProduction w grammar))))
+                (print "no match"))))))
 
 ;;;;;;;;;;;;;;;;;;;; Function Calls ;;;;;;;;;;;;;;;;;
 ;(getProduction "T" calc-gram)
 ;(first "SL" (initial-knowledge calc-gram) calc-gram)
+;(map car (cdr (getProduction "S" calc-gram)))
+;(first car (map car (cdr (getProduction "S" calc-gram))) initial-knowledge calc-gram)
+;(for-each (lambda (x) (newline) (display (first x (initial-knowledge calc-gram) calc-gram))) (map car (cdr (getProduction "S" calc-gram))))
