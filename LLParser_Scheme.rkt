@@ -128,7 +128,6 @@
          (non-terminals grammar))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Custom Functions Start Here ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;Test Grammar
 (define calc-gram 
 '(("P" ("SL" "$$"))
@@ -184,6 +183,12 @@
             (for-each (lambda (x)  (print (first x knowledge grammar ))(display " ") ) (map car (cdr (getProduction w grammar))))
                 (print "no match"))))))
 
+(define parse-table
+  (lambda (knowledge grammar)
+    (for-each (lambda (x) (print x)  (display ": ") (print (first x knowledge grammar)) (newline)) (map car grammar))
+    ))
+
 ;;;;;;;;;;;;;;;;;;;; Function Calls ;;;;;;;;;;;;;;;;;
 ;(getProduction "T" calc-gram)
 ;(first "SL" (initial-knowledge calc-gram) calc-gram)
+;(parse-table (initial-knowledge calc-gram) calc-gram)
